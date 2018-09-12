@@ -5,6 +5,8 @@ import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.model.RequestResponsePact;
 import com.zuhlke.report.service.models.FOFReport;
+import com.zuhlke.report.service.models.Token;
+import com.zuhlke.report.service.models.TokenRequest;
 import com.zuhlke.report.service.services.ReportService;
 import org.apache.http.entity.ContentType;
 import org.junit.runner.RunWith;
@@ -29,16 +31,17 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
     protected RequestResponsePact createPact(PactDslWithProvider builder) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-//        headers.put("charset", "UTF-8");
 
         return builder
-//                .uponReceiving("Request for a token")
-//                    .path("/fnv-api/V1/holdings")
-//                    .method("POST")
-//                    .body("{\"fundid\": \"12345\",\"fundidtype\":fund_id_type,\"todate\":\"01/01/2018\"}")
-//                .willRespondWith()
-//                    .status(200)
-//                    .body("{\"token\":\"unique_token\"}")
+                .uponReceiving("Request for a token")
+                    .path("/fnv-api/V1/holdings")
+                    .method("POST")
+                    .headers(headers)
+                    .body("{\"fundid\":\"12345\",\"fundidtype\":\"fund_id_type\",\"todate\":\"01/01/2018\"}")
+                .willRespondWith()
+                    .status(200)
+                    .headers(headers)
+                    .body("{\"token\":\"unique_token\"}")
 //                .uponReceiving("Request to get token status")
 //                    .path("/fnv-api/V1/status")
 //                    .method("GET")
@@ -71,14 +74,23 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
 
     @Override
     public void runTest(MockServer mockServer) {
-        verifyFOFReport(mockServer.getPort());
+        int mockServerPort = mockServer.getPort();
+        verifyToken(mockServerPort);
+        verifyFOFReport(mockServerPort);
     }
 
-    private void verifyFOFReport(int port) {
-
-        FOFReport expectedResponse = new FOFReport("000000000410042", "22/05/2018", "485", "FOF Advisory Waiver", "ME", "163.19");
-        FOFReport actualResponse = (FOFReport) reportService.extractReportData("unique_token", "http://localhost:" + port + "/fnv-api/V1/holdings-data");
+    private void verifyToken(int port) {
+        Token expectedResponse = new Token("unique_token");
+        Token actualResponse = reportService.requestToken(new TokenRequest("12345", "fund_id_type", "01/01/2018"), "http://localhost:" + port + "/fnv-api/V1/holdings");
 
         assertEquals(expectedResponse, actualResponse);
     }
+
+    private void verifyFOFReport(int port) {
+        FOFReport expectedResponse = new FOFReport("000000000410042", "22/05/2018", "485", "FOF Advisory Waiver", "ME", "163.19");
+        FOFReport actualResponse = (FOFReport) reportService.extractReportData(new Token("unique_token"), "http://localhost:" + port + "/fnv-api/V1/holdings-data");
+
+        assertEquals(expectedResponse, actualResponse);
+    }
+
 }
