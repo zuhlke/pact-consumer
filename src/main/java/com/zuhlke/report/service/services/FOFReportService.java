@@ -1,6 +1,7 @@
 package com.zuhlke.report.service.services;
 
 import com.zuhlke.report.service.models.FOFReport;
+import com.zuhlke.report.service.models.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,11 +20,11 @@ public class FOFReportService implements ReportService {
 
     @Override
     public FOFReport extractReportData(String token, String url) {
-        String requestBody = "{\"token\":\"" + token + "\"}";
+        Token tokenRequest = new Token(token);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
+        HttpEntity<Token> request = new HttpEntity<>(tokenRequest, headers);
         return restTemplate.postForObject(url, request, FOFReport.class);
     }
 }
