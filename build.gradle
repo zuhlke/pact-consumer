@@ -22,6 +22,10 @@ dependencies {
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
-test {
-    systemProperties['pact.rootDir'] = "$buildDir/pacts"
+pact {
+    publish {
+        pactBrokerUrl = 'http://localhost'
+//        pactBrokerUsername = project.pactBrokerUser
+//        pactBrokerPassword = project.pactBrokerPassword
+    }
 }

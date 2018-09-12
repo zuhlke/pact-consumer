@@ -1,6 +1,5 @@
 package com.zuhlke.report.service.services;
 
-import com.zuhlke.report.service.domains.FOFReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

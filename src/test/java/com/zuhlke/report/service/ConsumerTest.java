@@ -1,11 +1,10 @@
 package com.zuhlke.report.service;
 
-import au.com.dius.pact.consumer.*;
+import au.com.dius.pact.consumer.ConsumerPactTestMk2;
+import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.model.RequestResponsePact;
 import com.zuhlke.report.service.services.ReportService;
-import org.junit.Rule;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
