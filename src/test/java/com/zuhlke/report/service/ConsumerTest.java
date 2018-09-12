@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,29 +21,31 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
 
     @Override
     protected RequestResponsePact createPact(PactDslWithProvider builder) {
-        Map<String, String> headers = new HashMap<>();
+//        Map<String, String> headers = new HashMap<>();
 //        headers.put("Content-type", "application/json");
 
         return builder
-                .given("Token is valid") // NOTE: Using provider states are optional, you can leave it out
-                .uponReceiving("Request to extract data")
-                .path("/FOFReport")
-                .method("GET")
-//                .headers(headers)
+                .uponReceiving("Request for a token")
+                    .path("/getToken")
+                    .method("GET")
                 .willRespondWith()
-                .status(200)
-//                .headers(headers)
-                .body("{\"accountNumber\": \"000000000410042\", \"positionDate\": \"22/05/2018\"}")
-//                .given("test state 2") // NOTE: Using provider states are optional, you can leave it out
-//                .uponReceiving("ExampleJavaConsumerPactTest second test interaction")
-//                .method("OPTIONS")
-//                .headers(headers)
-//                .path("/second")
-//                .body("")
-//                .willRespondWith()
-//                .status(200)
-//                .headers(headers)
-//                .body("")
+                    .status(200)
+                    .body("{\"token\": \"validToken\"}")
+                .uponReceiving("Request to get token status")
+                    .path("/validateToken/validToken")
+                    .method("GET")
+                .willRespondWith()
+                    .status(200)
+                    .body("{\"status\":\"in_progress\"}")
+                .given("Token is valid") // NOTE: Using provider states are optional, you can leave it out
+                .uponReceiving("Request to extract FOF report data")
+                    .path("/FOFReport")
+                    .method("GET")
+    //                .headers(headers)
+                .willRespondWith()
+                    .status(200)
+    //                .headers(headers)
+                    .body("{\"accountNumber\":\"000000000410042\",\"positionDate\":\"22/05/2018\"}")
                 .toPact();
     }
 
@@ -60,6 +59,7 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
         return "report_service";
     }
 
+    @Override
     public void runTest(MockServer mockServer) {
 
 //        Map expectedResponse = new HashMap();
@@ -69,7 +69,11 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
 //        expectedResponse.put("securityDescriptionShort", "FOF Advisory Waiver");
 //        expectedResponse.put("assetGroup", "ME");
 //        expectedResponse.put("earnedIncomeLocal", "163.19");
+        verifyFOFReport(mockServer.getPort());
+    }
+
+    private void verifyFOFReport(int port) {
         String expectedResponse = "{\"accountNumber\":\"000000000410042\",\"positionDate\":\"22/05/2018\"}";
-        assertEquals(expectedResponse, reportService.extractReportData("validToken", "http://localhost:" + mockServer.getPort() + "/FOFReport"));
+        assertEquals(expectedResponse, reportService.extractReportData("validToken", "http://localhost:" + port + "/FOFReport"));
     }
 }
