@@ -7,6 +7,7 @@ import au.com.dius.pact.model.RequestResponsePact;
 import com.zuhlke.report.service.models.FOFReport;
 import com.zuhlke.report.service.models.Token;
 import com.zuhlke.report.service.models.TokenRequest;
+import com.zuhlke.report.service.models.TokenStatus;
 import com.zuhlke.report.service.services.ReportService;
 import org.apache.http.entity.ContentType;
 import org.junit.runner.RunWith;
@@ -42,14 +43,16 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
                     .status(200)
                     .headers(headers)
                     .body("{\"token\":\"unique_token\"}")
-//                .uponReceiving("Request to get token status")
-//                    .path("/fnv-api/V1/status")
-//                    .method("GET")
-//                    .body("{\"token\":\"unique_token\"}")
-//                .willRespondWith()
-//                    .status(200)
-//                    .body("{\"status\":\"DONE\"}")
-                .given("Token status is DONE") // NOTE: Using provider states are optional, you can leave it out
+                .uponReceiving("Request to get token status")
+                    .path("/fnv-api/V1/status")
+                    .method("POST")
+                    .headers(headers)
+                    .body("{\"token\":\"unique_token\"}")
+                .willRespondWith()
+                    .status(200)
+                    .headers(headers)
+                    .body("{\"status\":\"DONE\"}")
+                .given("Token status is DONE")
                 .uponReceiving("Request to extract FOF report data")
                     .path("/fnv-api/V1/holdings-data")
                     .method("POST")
@@ -77,11 +80,19 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
         int mockServerPort = mockServer.getPort();
         verifyToken(mockServerPort);
         verifyFOFReport(mockServerPort);
+        verifyTokenStatus(mockServerPort);
     }
 
     private void verifyToken(int port) {
         Token expectedResponse = new Token("unique_token");
         Token actualResponse = reportService.requestToken(new TokenRequest("12345", "fund_id_type", "01/01/2018"), "http://localhost:" + port + "/fnv-api/V1/holdings");
+
+        assertEquals(expectedResponse, actualResponse);
+    }
+
+    private void verifyTokenStatus(int port) {
+        TokenStatus expectedResponse = new TokenStatus("DONE");
+        TokenStatus actualResponse = reportService.requestTokenStatus(new Token("unique_token"), "http://localhost:" + port + "/fnv-api/V1/status");
 
         assertEquals(expectedResponse, actualResponse);
     }
