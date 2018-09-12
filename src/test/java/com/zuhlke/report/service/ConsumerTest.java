@@ -1,15 +1,16 @@
 package com.zuhlke.report.service;
 
-import au.com.dius.pact.consumer.ConsumerPactTestMk2;
-import au.com.dius.pact.consumer.MockServer;
+import au.com.dius.pact.consumer.*;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.model.RequestResponsePact;
+import com.zuhlke.report.service.services.ReportService;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,17 +26,17 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
     @Override
     protected RequestResponsePact createPact(PactDslWithProvider builder) {
         Map<String, String> headers = new HashMap<>();
-        headers.put("Content-type", "application/json");
+//        headers.put("Content-type", "application/json");
 
         return builder
                 .given("Token is valid") // NOTE: Using provider states are optional, you can leave it out
                 .uponReceiving("Request to extract data")
-                .path("/")
+                .path("/FOFReport")
                 .method("GET")
-                .headers(headers)
+//                .headers(headers)
                 .willRespondWith()
                 .status(200)
-                .headers(headers)
+//                .headers(headers)
                 .body("{\"accountNumber\": \"000000000410042\", \"positionDate\": \"22/05/2018\"}")
 //                .given("test state 2") // NOTE: Using provider states are optional, you can leave it out
 //                .uponReceiving("ExampleJavaConsumerPactTest second test interaction")
@@ -60,15 +61,16 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
         return "report_service";
     }
 
-    @Override
-    protected void runTest(MockServer mockServer) throws IOException {
-        Map expectedResponse = new HashMap();
-        expectedResponse.put("accountNumber", "000000000410042");
-        expectedResponse.put("positionDate", "22/05/2018");
+    public void runTest(MockServer mockServer) {
+
+//        Map expectedResponse = new HashMap();
+//        expectedResponse.put("accountNumber", "000000000410042");
+//        expectedResponse.put("positionDate", "22/05/2018");
 //        expectedResponse.put("securityUniqueQual", "485");
 //        expectedResponse.put("securityDescriptionShort", "FOF Advisory Waiver");
 //        expectedResponse.put("assetGroup", "ME");
 //        expectedResponse.put("earnedIncomeLocal", "163.19");
-        assertEquals(expectedResponse, reportService.extractReportData("validToken"));
+        String expectedResponse = "{\"accountNumber\":\"000000000410042\",\"positionDate\":\"22/05/2018\"}";
+        assertEquals(expectedResponse, reportService.extractReportData("validToken", "http://localhost:" + mockServer.getPort() + "/FOFReport"));
     }
 }
