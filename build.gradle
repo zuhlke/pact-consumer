@@ -25,6 +25,7 @@ dependencies {
 pact {
     publish {
         pactBrokerUrl = 'http://localhost'
+        pactDirectory = 'target/pacts'
 //        pactBrokerUsername = project.pactBrokerUser
 //        pactBrokerPassword = project.pactBrokerPassword
     }
