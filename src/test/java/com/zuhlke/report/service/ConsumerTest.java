@@ -34,6 +34,7 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
         headers.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 
         return builder
+                .given("No token")
                 .uponReceiving("Request for a token")
                     .path("/fnv-api/V1/holdings")
                     .method("POST")
@@ -43,6 +44,7 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
                     .status(200)
                     .headers(headers)
                     .body("{\"token\":\"unique_token\"}")
+                .given("Status of token has become DONE")
                 .uponReceiving("Request to get token status")
                     .path("/fnv-api/V1/status")
                     .method("POST")

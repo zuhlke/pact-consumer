@@ -22,15 +22,15 @@ import static au.com.dius.pact.consumer.ConsumerPactRunnerKt.runConsumerTest;
 import static org.junit.Assert.assertEquals;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringBootTest
 public class ConsumerTestGeneratedFromPact {
     final private MockProviderConfig config = MockProviderConfig.createDefault(PactSpecVersion.V3);
 
     @Autowired
     private ReportService reportService;
 
-    @Test
+//    @Test
     public void runTests() throws MalformedURLException {
 //        RequestResponsePact pact = (RequestResponsePact) PactReader.loadPact("./target/pacts/report_service-ihub_mart.json");
         RequestResponsePact pact = (RequestResponsePact) PactReader.loadPact(new URL("http://localhost/pacts/provider/ihub_mart/consumer/report_service/latest"));
