@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class FOFReport implements Serializable {
+public class AAFBCheckReport implements Serializable {
     @JsonProperty("accountNumber") private String accountNumber;
     @JsonProperty("positionDate") private String positionDate;
     @JsonProperty("securityUniqueQual") private String securityUniqueQual;
@@ -14,11 +14,11 @@ public class FOFReport implements Serializable {
     @JsonProperty("assetGroup") private String assetGroup;
     @JsonProperty("earnedIncomeLocal") private String earnedIncomeLocal;
 
-    public FOFReport() {
+    public AAFBCheckReport() {
 
     }
 
-    public FOFReport(String accountNumber, String positionDate, String securityUniqueQual, String securityDescriptionShort, String assetGroup, String earnedIncomeLocal) {
+    public AAFBCheckReport(String accountNumber, String positionDate, String securityUniqueQual, String securityDescriptionShort, String assetGroup, String earnedIncomeLocal) {
         this.accountNumber = accountNumber;
         this.positionDate = positionDate;
         this.securityUniqueQual = securityUniqueQual;
@@ -31,13 +31,13 @@ public class FOFReport implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FOFReport fofReport = (FOFReport) o;
-        return Objects.equals(accountNumber, fofReport.accountNumber) &&
-                Objects.equals(positionDate, fofReport.positionDate) &&
-                Objects.equals(securityUniqueQual, fofReport.securityUniqueQual) &&
-                Objects.equals(securityDescriptionShort, fofReport.securityDescriptionShort) &&
-                Objects.equals(assetGroup, fofReport.assetGroup) &&
-                Objects.equals(earnedIncomeLocal, fofReport.earnedIncomeLocal);
+        AAFBCheckReport AAFBCheckReport = (AAFBCheckReport) o;
+        return Objects.equals(accountNumber, AAFBCheckReport.accountNumber) &&
+                Objects.equals(positionDate, AAFBCheckReport.positionDate) &&
+                Objects.equals(securityUniqueQual, AAFBCheckReport.securityUniqueQual) &&
+                Objects.equals(securityDescriptionShort, AAFBCheckReport.securityDescriptionShort) &&
+                Objects.equals(assetGroup, AAFBCheckReport.assetGroup) &&
+                Objects.equals(earnedIncomeLocal, AAFBCheckReport.earnedIncomeLocal);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.zuhlke.report.service.services;
 
-import com.zuhlke.report.service.models.FOFReport;
+import com.zuhlke.report.service.models.AAFBCheckReport;
 import com.zuhlke.report.service.models.Token;
 import com.zuhlke.report.service.models.TokenRequest;
 import com.zuhlke.report.service.models.TokenStatus;
@@ -11,15 +11,15 @@ import org.springframework.web.client.RestTemplate;
 
 
 @Service
-public class FOFReportService implements ReportService {
+public class AAFBCheckReportService implements ReportService {
 
     @Autowired
     private RestTemplate restTemplate;
 
     @Override
-    public FOFReport extractReportData(Token token, String url) {
+    public AAFBCheckReport extractReportData(Token token, String url) {
         HttpEntity<Token> request = new HttpEntity<>(token, getDefaultHttpHeaders());
-        return restTemplate.postForObject(url, request, FOFReport.class);
+        return restTemplate.postForObject(url, request, AAFBCheckReport.class);
     }
 
     @Override

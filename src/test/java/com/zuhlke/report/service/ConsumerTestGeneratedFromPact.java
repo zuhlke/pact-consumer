@@ -4,7 +4,7 @@ import au.com.dius.pact.model.MockProviderConfig;
 import au.com.dius.pact.model.PactReader;
 import au.com.dius.pact.model.PactSpecVersion;
 import au.com.dius.pact.model.RequestResponsePact;
-import com.zuhlke.report.service.models.FOFReport;
+import com.zuhlke.report.service.models.AAFBCheckReport;
 import com.zuhlke.report.service.models.Token;
 import com.zuhlke.report.service.models.TokenRequest;
 import com.zuhlke.report.service.models.TokenStatus;
@@ -39,7 +39,7 @@ public class ConsumerTestGeneratedFromPact {
             String url = mockServer.getUrl();
             verifyToken(url);
             verifyTokenStatus(url);
-            verifyFOFReport(url);
+            verifyAAFBReport(url);
         });
     }
 
@@ -57,9 +57,9 @@ public class ConsumerTestGeneratedFromPact {
         assertEquals(expectedResponse, actualResponse);
     }
 
-    private void verifyFOFReport(String url) {
-        FOFReport expectedResponse = new FOFReport("000000000410042", "22/05/2018", "485", "FOF Advisory Waiver", "ME", "163.19");
-        FOFReport actualResponse = (FOFReport) reportService.extractReportData(new Token("unique_token"), url + "/fnv-api/V1/holdings-data");
+    private void verifyAAFBReport(String url) {
+        AAFBCheckReport expectedResponse = new AAFBCheckReport("000000000410042", "22/05/2018", "485", "FOF Advisory Waiver", "ME", "163.19");
+        AAFBCheckReport actualResponse = (AAFBCheckReport) reportService.extractReportData(new Token("unique_token"), url + "/fnv-api/V1/holdings-data");
 
         assertEquals(expectedResponse, actualResponse);
     }

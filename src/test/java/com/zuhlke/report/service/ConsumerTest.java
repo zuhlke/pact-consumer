@@ -4,7 +4,7 @@ import au.com.dius.pact.consumer.ConsumerPactTestMk2;
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.model.RequestResponsePact;
-import com.zuhlke.report.service.models.FOFReport;
+import com.zuhlke.report.service.models.AAFBCheckReport;
 import com.zuhlke.report.service.models.Token;
 import com.zuhlke.report.service.models.TokenRequest;
 import com.zuhlke.report.service.models.TokenStatus;
@@ -55,7 +55,7 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
                     .headers(headers)
                     .body("{\"status\":\"DONE\"}")
                 .given("Token status is DONE")
-                .uponReceiving("Request to extract FOF report data")
+                .uponReceiving("Request to extract AAFB Check report data")
                     .path("/fnv-api/V1/holdings-data")
                     .method("POST")
                     .headers(headers)
@@ -81,7 +81,7 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
     public void runTest(MockServer mockServer) {
         int mockServerPort = mockServer.getPort();
         verifyToken(mockServerPort);
-        verifyFOFReport(mockServerPort);
+        verifyAAFBReport(mockServerPort);
         verifyTokenStatus(mockServerPort);
     }
 
@@ -99,9 +99,9 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
         assertEquals(expectedResponse, actualResponse);
     }
 
-    private void verifyFOFReport(int port) {
-        FOFReport expectedResponse = new FOFReport("000000000410042", "22/05/2018", "485", "FOF Advisory Waiver", "ME", "163.19");
-        FOFReport actualResponse = (FOFReport) reportService.extractReportData(new Token("unique_token"), "http://localhost:" + port + "/fnv-api/V1/holdings-data");
+    private void verifyAAFBReport(int port) {
+        AAFBCheckReport expectedResponse = new AAFBCheckReport("000000000410042", "22/05/2018", "485", "FOF Advisory Waiver", "ME", "163.19");
+        AAFBCheckReport actualResponse = (AAFBCheckReport) reportService.extractReportData(new Token("unique_token"), "http://localhost:" + port + "/fnv-api/V1/holdings-data");
 
         assertEquals(expectedResponse, actualResponse);
     }
