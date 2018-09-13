@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import static au.com.dius.pact.consumer.ConsumerPactRunnerKt.runConsumerTest;
 import static org.junit.Assert.assertEquals;
 
@@ -28,8 +31,9 @@ public class ConsumerTestGeneratedFromPact {
     private ReportService reportService;
 
     @Test
-    public void runTests() {
-        RequestResponsePact pact = (RequestResponsePact) PactReader.loadPact(null, "./target/pacts/report_service-ihub_mart.json");
+    public void runTests() throws MalformedURLException {
+//        RequestResponsePact pact = (RequestResponsePact) PactReader.loadPact("./target/pacts/report_service-ihub_mart.json");
+        RequestResponsePact pact = (RequestResponsePact) PactReader.loadPact(new URL("http://localhost/pacts/provider/ihub_mart/consumer/report_service/latest"));
 
         runConsumerTest(pact, config, mockServer -> {
             String url = mockServer.getUrl();
