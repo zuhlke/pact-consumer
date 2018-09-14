@@ -1,0 +1,17 @@
+{
+    "status": "SUCCESS",
+    "data": {
+        "requestId": "98CE1A035652106D3859BEFBA3464045845C3849"
+    },
+    "metadata": {
+        "success": true,
+        "responseId": "IFA-35876-79290-1536845455564",
+        "description": "Successfully fetched data!!"
+    },
+    "errors": [
+        {
+            "code": "200",
+            "description": "No errors found!!"
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+"accountId": ["LMA0100"],
+"sourceSystem": "ZF2",
+"toDate":"2018-03-28",
+"reportDateType":"accountingDate",
+"masterOnly":"N"
+}

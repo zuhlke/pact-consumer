@@ -1,0 +1,34 @@
+GET: https://fnv-api.dev.bnymellon.net/data-service/categoryCodeValue/ZFA/BROKER CODES
+
+{
+    "status": "COMPLETED",
+    "data": {
+        "details": [
+            {
+                "codeCategoryName": "BROKER CODES",
+                "codeCategoryDescription": "Broker Codes",
+                "sourceName": "ZFA",
+                "codeValueDescription": "GOLDMAN SACHS & CO",
+                "codeValue": "00000005"
+            },
+            {
+                "codeCategoryName": "BROKER CODES",
+                "codeCategoryDescription": "Broker Codes",
+                "sourceName": "ZFA",
+                "codeValueDescription": "BROWN BROTHERS HARRIMAN & CO",
+                "codeValue": "00000010"
+            }
+ ]
+    },
+    "metadata": {
+        "success": true,
+        "responseId": "IFA-45995-81630-1536860028789",
+        "description": "Successfully fetched data!!"
+    },
+    "errors": [
+        {
+            "code": "200",
+            "description": "No errors found!!"
+        }
+    ]
+}

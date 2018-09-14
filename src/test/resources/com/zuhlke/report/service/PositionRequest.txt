@@ -1,0 +1,39 @@
+First Request:
+POST URL:https://fnv-api.dev.bnymellon.net/holding-service/dataMartPosition
+
+Request Header
+Content-Type:application/json
+businessGroup:LEGGNEXENALL
+
+Request Body
+{
+"accountId": ["LMA0100"],
+"sourceSystem": "ZF2",
+"toDate":"2018-03-28",
+"reportDateType":"accountingDate",
+"masterOnly":"N"
+}
+
+
+Response:
+{
+    "status": "SUCCESS",
+    "data": {
+        "requestId": "98CE1A035652106D3859BEFBA3464045845C3849"
+    },
+    "metadata": {
+        "success": true,
+        "responseId": "IFA-35876-79290-1536845455564",
+        "description": "Successfully fetched data!!"
+    },
+    "errors": [
+        {
+            "code": "200",
+            "description": "No errors found!!"
+        }
+    ]
+}
+
+
+Second Request:
+https://fnv-api.dev.bnymellon.net/data-service/data/{requestId}
