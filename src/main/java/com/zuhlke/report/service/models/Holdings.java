@@ -3,10 +3,9 @@ package com.zuhlke.report.service.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class Holdings implements Serializable {
+public class Holdings {
     @JsonProperty("accountNumber") private String accountNumber;
     @JsonProperty("asOfDate") private String asOfDate;
     @JsonProperty("securityUniqueQual") private String securityUniqueQual;
