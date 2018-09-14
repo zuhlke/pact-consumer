@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class AAFBCheckReport implements Serializable {
     @JsonProperty("accountNumber") private String accountNumber;
-    @JsonProperty("positionDate") private String positionDate;
+    @JsonProperty("asOfDate") private String asOfDate;
     @JsonProperty("securityUniqueQual") private String securityUniqueQual;
     @JsonProperty("securityDescriptionShort") private String securityDescriptionShort;
     @JsonProperty("assetGroup") private String assetGroup;
@@ -18,9 +18,9 @@ public class AAFBCheckReport implements Serializable {
 
     }
 
-    public AAFBCheckReport(String accountNumber, String positionDate, String securityUniqueQual, String securityDescriptionShort, String assetGroup, String earnedIncomeLocal) {
+    public AAFBCheckReport(String accountNumber, String asOfDate, String securityUniqueQual, String securityDescriptionShort, String assetGroup, String earnedIncomeLocal) {
         this.accountNumber = accountNumber;
-        this.positionDate = positionDate;
+        this.asOfDate = asOfDate;
         this.securityUniqueQual = securityUniqueQual;
         this.securityDescriptionShort = securityDescriptionShort;
         this.assetGroup = assetGroup;
@@ -33,7 +33,7 @@ public class AAFBCheckReport implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         AAFBCheckReport AAFBCheckReport = (AAFBCheckReport) o;
         return Objects.equals(accountNumber, AAFBCheckReport.accountNumber) &&
-                Objects.equals(positionDate, AAFBCheckReport.positionDate) &&
+                Objects.equals(asOfDate, AAFBCheckReport.asOfDate) &&
                 Objects.equals(securityUniqueQual, AAFBCheckReport.securityUniqueQual) &&
                 Objects.equals(securityDescriptionShort, AAFBCheckReport.securityDescriptionShort) &&
                 Objects.equals(assetGroup, AAFBCheckReport.assetGroup) &&
@@ -42,6 +42,6 @@ public class AAFBCheckReport implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountNumber, positionDate, securityUniqueQual, securityDescriptionShort, assetGroup, earnedIncomeLocal);
+        return Objects.hash(accountNumber, asOfDate, securityUniqueQual, securityDescriptionShort, assetGroup, earnedIncomeLocal);
     }
 }

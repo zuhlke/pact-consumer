@@ -63,7 +63,7 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
                 .willRespondWith()
                     .status(200)
                     .headers(headers)
-                    .body("{\"accountNumber\":\"000000000410042\",\"positionDate\":\"22/05/2018\",\"securityUniqueQual\":\"485\",\"securityDescriptionShort\":\"FOF Advisory Waiver\",\"assetGroup\":\"ME\",\"earnedIncomeLocal\":\"163.19\"}", ContentType.APPLICATION_JSON)
+                    .body("{\"accountNumber\":\"000000000410042\",\"asOfDate\":\"22/05/2018\",\"securityUniqueQual\":\"485\",\"securityDescriptionShort\":\"FOF Advisory Waiver\",\"assetGroup\":\"ME\",\"earnedIncomeLocal\":\"163.19\"}", ContentType.APPLICATION_JSON)
                 .toPact();
     }
 
