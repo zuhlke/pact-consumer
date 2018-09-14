@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class AAFBCheckReport implements Serializable {
+public class Holdings implements Serializable {
     @JsonProperty("accountNumber") private String accountNumber;
     @JsonProperty("asOfDate") private String asOfDate;
     @JsonProperty("securityUniqueQual") private String securityUniqueQual;
@@ -14,11 +14,11 @@ public class AAFBCheckReport implements Serializable {
     @JsonProperty("assetGroup") private String assetGroup;
     @JsonProperty("earnedIncomeLocal") private String earnedIncomeLocal;
 
-    public AAFBCheckReport() {
+    public Holdings() {
 
     }
 
-    public AAFBCheckReport(String accountNumber, String asOfDate, String securityUniqueQual, String securityDescriptionShort, String assetGroup, String earnedIncomeLocal) {
+    public Holdings(String accountNumber, String asOfDate, String securityUniqueQual, String securityDescriptionShort, String assetGroup, String earnedIncomeLocal) {
         this.accountNumber = accountNumber;
         this.asOfDate = asOfDate;
         this.securityUniqueQual = securityUniqueQual;
@@ -31,13 +31,13 @@ public class AAFBCheckReport implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AAFBCheckReport AAFBCheckReport = (AAFBCheckReport) o;
-        return Objects.equals(accountNumber, AAFBCheckReport.accountNumber) &&
-                Objects.equals(asOfDate, AAFBCheckReport.asOfDate) &&
-                Objects.equals(securityUniqueQual, AAFBCheckReport.securityUniqueQual) &&
-                Objects.equals(securityDescriptionShort, AAFBCheckReport.securityDescriptionShort) &&
-                Objects.equals(assetGroup, AAFBCheckReport.assetGroup) &&
-                Objects.equals(earnedIncomeLocal, AAFBCheckReport.earnedIncomeLocal);
+        Holdings Holdings = (Holdings) o;
+        return Objects.equals(accountNumber, Holdings.accountNumber) &&
+                Objects.equals(asOfDate, Holdings.asOfDate) &&
+                Objects.equals(securityUniqueQual, Holdings.securityUniqueQual) &&
+                Objects.equals(securityDescriptionShort, Holdings.securityDescriptionShort) &&
+                Objects.equals(assetGroup, Holdings.assetGroup) &&
+                Objects.equals(earnedIncomeLocal, Holdings.earnedIncomeLocal);
     }
 
     @Override

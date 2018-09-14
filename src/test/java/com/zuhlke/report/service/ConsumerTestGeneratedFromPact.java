@@ -4,16 +4,12 @@ import au.com.dius.pact.model.MockProviderConfig;
 import au.com.dius.pact.model.PactReader;
 import au.com.dius.pact.model.PactSpecVersion;
 import au.com.dius.pact.model.RequestResponsePact;
-import com.zuhlke.report.service.models.AAFBCheckReport;
+import com.zuhlke.report.service.models.Holdings;
 import com.zuhlke.report.service.models.Token;
 import com.zuhlke.report.service.models.TokenRequest;
 import com.zuhlke.report.service.models.TokenStatus;
 import com.zuhlke.report.service.services.ReportService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -58,8 +54,8 @@ public class ConsumerTestGeneratedFromPact {
     }
 
     private void verifyAAFBReport(String url) {
-        AAFBCheckReport expectedResponse = new AAFBCheckReport("000000000410042", "22/05/2018", "485", "FOF Advisory Waiver", "ME", "163.19");
-        AAFBCheckReport actualResponse = (AAFBCheckReport) reportService.extractReportData(new Token("unique_token"), url + "/fnv-api/V1/holdings-data");
+        Holdings expectedResponse = new Holdings("000000000410042", "22/05/2018", "485", "FOF Advisory Waiver", "ME", "163.19");
+        Holdings actualResponse = (Holdings) reportService.extractReportData(new Token("unique_token"), url + "/fnv-api/V1/holdings-data");
 
         assertEquals(expectedResponse, actualResponse);
     }

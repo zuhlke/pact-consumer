@@ -1,6 +1,6 @@
 package com.zuhlke.report.service.services;
 
-import com.zuhlke.report.service.models.AAFBCheckReport;
+import com.zuhlke.report.service.models.Holdings;
 import com.zuhlke.report.service.models.Token;
 import com.zuhlke.report.service.models.TokenRequest;
 import com.zuhlke.report.service.models.TokenStatus;
@@ -17,9 +17,9 @@ public class AAFBCheckReportService implements ReportService {
     private RestTemplate restTemplate;
 
     @Override
-    public AAFBCheckReport extractReportData(Token token, String url) {
+    public Holdings extractReportData(Token token, String url) {
         HttpEntity<Token> request = new HttpEntity<>(token, getDefaultHttpHeaders());
-        return restTemplate.postForObject(url, request, AAFBCheckReport.class);
+        return restTemplate.postForObject(url, request, Holdings.class);
     }
 
     @Override
