@@ -39,7 +39,7 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
                     .path("/fnv-api/V1/holdings")
                     .method("POST")
                     .headers(headers)
-                    .body("{\"fundid\":\"12345\",\"fundidtype\":\"fund_id_type\",\"todate\":\"01/01/2018\"}")
+                    .body("{\"fundid\":\"410042\",\"fundidtype\":\"fund_id_type\",\"todate\":\"22/05/2018\"}")
                 .willRespondWith()
                     .status(200)
                     .headers(headers)
@@ -87,7 +87,7 @@ public class ConsumerTest extends ConsumerPactTestMk2 {
 
     private void verifyToken(int port) {
         Token expectedResponse = new Token("unique_token");
-        Token actualResponse = reportService.requestToken(new TokenRequest("12345", "fund_id_type", "01/01/2018"), "http://localhost:" + port + "/fnv-api/V1/holdings");
+        Token actualResponse = reportService.requestToken(new TokenRequest("410042", "fund_id_type", "22/05/2018"), "http://localhost:" + port + "/fnv-api/V1/holdings");
 
         assertEquals(expectedResponse, actualResponse);
     }
